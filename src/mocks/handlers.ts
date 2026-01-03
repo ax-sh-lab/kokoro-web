@@ -35,7 +35,7 @@ const ffmpegCore = http.get(
     console.log("MJS file size:", text.length);
 
     return HttpResponse.text(text, {
-      "Content-Type": "application/javascript",
+      headers: { "Content-Type": "application/javascript" },
     });
   },
 );
@@ -51,7 +51,6 @@ const kokoro = http.get(
     });
   },
 );
-
 
 const ortCore = http.get(
   "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0-dev.20250206-d981b153d3/dist/ort-wasm-simd-threaded.jsep.mjs",
@@ -85,9 +84,7 @@ const ortCore = http.get(
 const ortWasm = http.get(
   "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0-dev.20250206-d981b153d3/dist/ort-wasm-simd-threaded.jsep.wasm",
   async () => {
-    const mockWasm = await fetch(
-      bypass("/ort-wasm-simd-threaded.jsep.wasm"),
-    );
+    const mockWasm = await fetch(bypass("/ort-wasm-simd-threaded.jsep.wasm"));
     const buffer = await mockWasm.arrayBuffer();
 
     return HttpResponse.arrayBuffer(buffer, {
@@ -96,7 +93,4 @@ const ortWasm = http.get(
   },
 );
 
-export const handlers = [espeak, ffmpeg, ffmpegCore, kokoro,
-  ortCore,
-  ortWasm
-];
+export const handlers = [espeak, ffmpeg, ffmpegCore, kokoro, ortCore, ortWasm];

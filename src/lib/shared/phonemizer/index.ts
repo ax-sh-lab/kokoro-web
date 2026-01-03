@@ -48,7 +48,7 @@ export async function phonemize(
       locateFile: (_: string) => ESPEAK_NG_WASM_URL,
       arguments: espeakArgs,
     });
-    console.log("Espeak wasm",espeak);
+    console.log("Espeak wasm", espeak);
   } else {
     espeak = await ESpeakNg({
       arguments: espeakArgs,

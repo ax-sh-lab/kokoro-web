@@ -12,6 +12,13 @@ import {
 } from "$lib/shared/resources";
 import { authenticate } from "$lib/server/authenticate";
 
+import { worker } from "../../../../../mocks/server";
+let mockServer;
+if (!mockServer) {
+  mockServer = worker;
+  worker.listen();
+}
+
 /**
  * @openapi
  * /api/v1/audio/speech:
@@ -174,6 +181,7 @@ export const POST: RequestHandler = async ({ request }) => {
       format: response_format ?? "mp3",
       acceleration: "cpu",
     });
+    console.log("RRRRR",result);
 
     return new Response(result.buffer, {
       headers: {

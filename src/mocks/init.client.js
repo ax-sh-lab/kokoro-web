@@ -1,6 +1,7 @@
 export async function startMockServiceWorker() {
   if (typeof window === "undefined") return;
 
+  // @ts-ignore
   const { worker } = await import("./browser.ts");
   await worker.start({
     onUnhandledRequest(request, print) {
