@@ -9,7 +9,7 @@ export * from "./quotes";
 
 const downloadUrl =
   "https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX/resolve/1939ad2a8e416c0acfeecc08a694d14ef25f2231";
-
+// https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX/resolve/1939ad2a8e416c0acfeecc08a694d14ef25f2231/onnx/model.onnx
 /**
  * Fetches the model with the given id.
  *
