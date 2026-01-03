@@ -1,6 +1,7 @@
 <script lang="ts">
   import "../app.css";
   import { fade } from "svelte/transition";
+  import { browser, dev } from "$app/environment";
   import ThemeSelect from "$lib/client/components/ThemeSelect.svelte";
   import { ExternalLink, Menu, X, Github } from "lucide-svelte";
   import type { LayoutProps } from "./$types";
@@ -12,9 +13,14 @@
 
   let isOpen = $state(false);
 
-  onMount(() => {
+  onMount(async () => {
+    if (dev && browser) {
+      const { startMockServiceWorker } = await import("../mocks/init.client");
+      await startMockServiceWorker();
+    }
+
     umami.loadScript();
-    umami.identify({ hostname: window.location.hostname });
+    await umami.identify({ hostname: window.location.hostname });
   });
 </script>
 

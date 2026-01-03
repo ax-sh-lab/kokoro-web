@@ -60,7 +60,7 @@ services:
     environment:
       - KW_SECRET_API_KEY=your-api-key
     volumes:
-      - ./kokoro-cache:/kokoro/cache  # Cache downloaded models and voices
+      - ./kokoro-cache:/kokoro/cache # Cache downloaded models and voices
     restart: unless-stopped
 ```
 
@@ -84,8 +84,8 @@ import path from "path";
 import OpenAI from "openai";
 
 const openai = new OpenAI({
-  baseURL: 'http://your-kokoro-host/api/v1',
-  apiKey: 'your-kokoro-api-key',
+  baseURL: "http://your-kokoro-host/api/v1",
+  apiKey: "your-kokoro-api-key",
 });
 const speechFile = path.resolve("./speech.mp3");
 
