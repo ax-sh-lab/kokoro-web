@@ -14,6 +14,18 @@ const espeak = http.get(
     });
   },
 );
+const voice = http.get(
+  "https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX/resolve/1939ad2a8e416c0acfeecc08a694d14ef25f2231/voices/af_heart.bin",
+  async () => {
+
+    const mockWasm = await fetch(bypass("/af_heart.bin"));
+    const buffer = await mockWasm.arrayBuffer();
+
+    return HttpResponse.arrayBuffer(buffer, {
+      headers: { "Content-Type": "application/wasm" },
+    });
+  },
+);
 
 const ffmpeg = http.get(
   "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.6/dist/esm/ffmpeg-core.wasm",
@@ -51,6 +63,7 @@ const kokoro = http.get(
     });
   },
 );
+
 const kokoroSmall = http.get(
   "https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX/resolve/1939ad2a8e416c0acfeecc08a694d14ef25f2231/onnx/model_q8f16.onnx",
   async () => {
@@ -112,4 +125,5 @@ export const handlers = [
   kokoroSmall,
   ortCore,
   ortWasm,
+  voice
 ];

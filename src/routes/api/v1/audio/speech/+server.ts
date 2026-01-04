@@ -12,12 +12,10 @@ import {
 } from "$lib/shared/resources";
 import { authenticate } from "$lib/server/authenticate";
 
-import { worker } from "../../../../../mocks/server";
-let mockServer;
-if (!mockServer) {
-  mockServer = worker;
-  worker.listen();
-}
+import { server } from "../../../../../mocks/server";
+
+server.listen({ onUnhandledRequest: "error" });
+console.log("MSW Server Started");
 
 /**
  * @openapi
@@ -181,7 +179,7 @@ export const POST: RequestHandler = async ({ request }) => {
       format: response_format ?? "mp3",
       acceleration: "cpu",
     });
-    console.log("RRRRR",result);
+    console.log("RRRRR", result);
 
     return new Response(result.buffer, {
       headers: {
@@ -189,6 +187,7 @@ export const POST: RequestHandler = async ({ request }) => {
       },
     });
   } catch (e: any) {
+    console.error("error", e);
     return json({ message: e.message }, { status: 500 });
   }
 };

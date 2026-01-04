@@ -8,7 +8,7 @@ export async function startMockServiceWorker() {
       // Only warn about external unhandled requests
       const url = new URL(request.url);
       if (url.origin !== window.location.origin) {
-        print.warning();
+        print.error();
       }
     },
   });
