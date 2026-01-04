@@ -17,7 +17,7 @@ const downloadUrl =
  */
 export async function getModel(id: ModelId | string): Promise<ArrayBuffer> {
   let modelId = modelsMap["model"].id;
-  console.log(modelId, "fix this for srever");
+  modelId = "model"; // "the other modes were buggy or not found so just use the working one"
   for (const key of Object.keys(modelsMap)) {
     if (key === id) {
       modelId = modelsMap[id as ModelId].id;
