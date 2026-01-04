@@ -104,7 +104,12 @@ const ortWasm = http.get(
   },
 );
 
-export const handlers = [espeak, ffmpeg, ffmpegCore,
+export const handlers = [
+  espeak,
+  ffmpeg,
+  ffmpegCore,
   kokoro,
   kokoroSmall,
-  ortCore, ortWasm];
+  ortCore,
+  ortWasm,
+];

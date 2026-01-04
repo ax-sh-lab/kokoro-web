@@ -7,7 +7,8 @@ import { toaster } from "$lib/client/toaster";
  * @param url The url to be fetched
  */
 export async function getFileFromUrl(url: string): Promise<ArrayBuffer> {
-  console.log("Downloading URL:", url);
+  console.log("Downloading URL:", browser, url);
+
   return browser ? getFileFromUrlClient(url) : getFileFromUrlServer(url);
 }
 
@@ -53,20 +54,24 @@ async function getFileFromUrlServer(url: string): Promise<ArrayBuffer> {
   const path = await import("path");
   const crypto = await import("crypto");
 
-  const cacheDir = "/kokoro/cache";
+  const cacheDir = "./kokoro/cache";
   const hash = crypto.createHash("md5").update(url).digest("hex");
   const filePath = path.join(cacheDir, hash);
+  console.log("eeeeaaaa", filePath);
 
   try {
     await fs.access(cacheDir);
   } catch {
     await fs.mkdir(cacheDir, { recursive: true });
   }
+
   try {
     const data = await fs.readFile(filePath);
     console.log("Downloaded from cache");
     return new Uint8Array(data).buffer;
-  } catch {}
+  } catch (e) {
+    console.log("aaadfsfasfasfdasfas", e);
+  }
 
   const res = await fetch(url);
   if (!res.ok) {
