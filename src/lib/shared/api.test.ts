@@ -3,8 +3,7 @@ import path from "path";
 import OpenAI from "openai";
 import { describe, it } from "vitest";
 
-describe(
-  "test api",
+describe("test api",
   () => {
     it("should ", async () => {
       const host = "http://localhost:8880";
