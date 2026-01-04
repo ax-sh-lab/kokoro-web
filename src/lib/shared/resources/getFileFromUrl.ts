@@ -69,7 +69,7 @@ async function getFileFromUrlServer(url: string): Promise<ArrayBuffer> {
     const data = await fs.readFile(filePath);
     console.log("loading from cache", filePath);
     return new Uint8Array(data).buffer;
-  } catch (e) {
+  } catch (e: any) {
     console.warn("[WARN] loading from cache refetching", e.message);
   }
 

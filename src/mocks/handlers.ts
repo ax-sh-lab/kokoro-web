@@ -54,39 +54,42 @@ const ffmpegCore = http.get(
   // },
 );
 
-const kokoro = http.get(
-  "https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX/resolve/1939ad2a8e416c0acfeecc08a694d14ef25f2231/onnx/model.onnx",
-  () => loadFile("model.onnx", "application/wasm"),
-);
-
-const kokoroSmall = http.get(
-  "https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX/resolve/1939ad2a8e416c0acfeecc08a694d14ef25f2231/onnx/model_q8f16.onnx",
-  () => loadFile("model_q8f16.onnx", "application/wasm"),
-);
-
-const ortCore = http.get(
-  "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0-dev.20250206-d981b153d3/dist/ort-wasm-simd-threaded.jsep.mjs",
-  () => loadFile("ort-wasm-simd-threaded.jsep.mjs", "text/javascript"),
-);
-
-const ortWasm = http.get(
-  "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0-dev.20250206-d981b153d3/dist/ort-wasm-simd-threaded.jsep.wasm",
-  () => loadFile("ort-wasm-simd-threaded.jsep.wasm", "application/wasm"),
-);
+// const ortCore = http.get(
+//   "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0-dev.20250206-d981b153d3/dist/ort-wasm-simd-threaded.jsep.mjs",
+//   () => loadFile("ort-wasm-simd-threaded.jsep.mjs", "text/javascript"),
+// );
+//
+// const ortWasm = http.get(
+//   "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0-dev.20250206-d981b153d3/dist/ort-wasm-simd-threaded.jsep.wasm",
+//   () => loadFile("ort-wasm-simd-threaded.jsep.wasm", "application/wasm"),
+// );
 
 const notyf = http.get(
   "https://cdn.jsdelivr.net/npm/notyf@3.10.0/notyf.min.css",
   () => loadFile("notyf.min.css", "text/css"),
 );
 
-export const handlers = [
-  espeak,
-  ffmpeg,
-  ffmpegCore,
-  kokoro,
-  kokoroSmall,
-  ortCore,
-  ortWasm,
-  voice,
-  notyf,
-];
+const onnxWasm = [
+  [
+    "model.onnx",
+    "application/wasm",
+    "https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX/resolve/1939ad2a8e416c0acfeecc08a694d14ef25f2231/onnx/model.onnx",
+  ],
+  [
+    "model_q8f16.onnx",
+    "application/wasm",
+    "https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX/resolve/1939ad2a8e416c0acfeecc08a694d14ef25f2231/onnx/model_q8f16.onnx",
+  ],
+  [
+    "ort-wasm-simd-threaded.asyncify.mjs",
+    "text/javascript",
+    "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.23.2/dist/ort-wasm-simd-threaded.asyncify.mjs",
+  ],
+  [
+    "ort-wasm-simd-threaded.asyncify.wasm",
+    "application/wasm",
+    "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.23.2/dist/ort-wasm-simd-threaded.asyncify.wasm",
+  ],
+].map(([key, type, url]) => http.get(url, () => loadFile(key, type)));
+
+export const handlers = [espeak, ffmpeg, ffmpegCore, voice, notyf, ...onnxWasm];
