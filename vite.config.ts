@@ -7,4 +7,7 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ["onnxruntime-node", "@ffmpeg/ffmpeg", "@ffmpeg/util"],
   },
+  server: {
+    port: 8880,
+  },
 });
