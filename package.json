@@ -13,7 +13,8 @@
     "openapigen": "node ./scripts/generate-openapi.mjs",
     "fmt": "prettier . --write",
     "test": "vitest run",
-    "lint": "tsgo --noEmit"
+    "lint": "tsgo --noEmit",
+    "clean": "rimraf -rf node_modules .svelte-kit"
   },
   "dependencies": {
     "@ffmpeg/ffmpeg": "0.12.15",
@@ -42,6 +43,7 @@
     "prettier": "3.7.4",
     "prettier-plugin-svelte": "3.4.1",
     "prettier-plugin-tailwindcss": "0.7.2",
+    "rimraf": "^6.1.2",
     "svelte": "5.46.1",
     "svelte-check": "4.3.5",
     "swagger-jsdoc": "6.2.8",
