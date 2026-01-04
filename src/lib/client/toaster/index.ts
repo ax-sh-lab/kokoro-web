@@ -3,7 +3,16 @@ declare const Notyf: any;
 let notyfInstance: any = null;
 function getNotyf(): any {
   if (!notyfInstance) {
-    notyfInstance = new Notyf();
+    try {
+      notyfInstance = new Notyf();
+    } catch (e) {
+      console.error("notification error showld ", e);
+      notyfInstance = {
+        open(...args: string[]) {
+          console.log("not breaking toast", ...args);
+        },
+      };
+    }
   }
   return notyfInstance;
 }
