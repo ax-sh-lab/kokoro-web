@@ -50,6 +50,19 @@ async function getFileFromUrlClient(url: string): Promise<ArrayBuffer> {
 }
 
 async function getFileFromUrlServer(url: string): Promise<ArrayBuffer> {
+  const response = await fetch(url);
+
+  console.log("Status:", response.status);
+  console.log("Headers:", Object.fromEntries(response.headers));
+
+  // // Read the error
+  // const text = await response.text();
+  // console.log("Error body:", text);
+  //
+  // // Or if it's JSON:
+  // const json = await response.json();
+  // console.log("Error JSON:", json);
+
   const fs = await import("fs/promises");
   const path = await import("path");
   const crypto = await import("crypto");
