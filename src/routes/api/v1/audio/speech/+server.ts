@@ -179,7 +179,6 @@ export const POST: RequestHandler = async ({ request }) => {
       format: response_format ?? "mp3",
       acceleration: "cpu",
     });
-    console.log("RRRRR", result);
 
     return new Response(result.buffer, {
       headers: {
