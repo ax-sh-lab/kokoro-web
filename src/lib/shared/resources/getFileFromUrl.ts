@@ -7,7 +7,7 @@ import { toaster } from "$lib/client/toaster";
  * @param url The url to be fetched
  */
 export async function getFileFromUrl(url: string): Promise<ArrayBuffer> {
-  console.log("Downloading URL:", browser, url);
+  console.log("[Downloading URL]:", browser ? "browser" : "server", url);
 
   return browser ? getFileFromUrlClient(url) : getFileFromUrlServer(url);
 }
@@ -50,27 +50,14 @@ async function getFileFromUrlClient(url: string): Promise<ArrayBuffer> {
 }
 
 async function getFileFromUrlServer(url: string): Promise<ArrayBuffer> {
-  const response = await fetch(url);
-
-  console.log("Status:", response.status);
-  console.log("Headers:", Object.fromEntries(response.headers));
-
-  // // Read the error
-  // const text = await response.text();
-  // console.log("Error body:", text);
-  //
-  // // Or if it's JSON:
-  // const json = await response.json();
-  // console.log("Error JSON:", json);
-
   const fs = await import("fs/promises");
   const path = await import("path");
   const crypto = await import("crypto");
 
   const cacheDir = "./kokoro/cache";
+  // hash the url for unique name that's fs safe
   const hash = crypto.createHash("md5").update(url).digest("hex");
   const filePath = path.join(cacheDir, hash);
-  console.log("eeeeaaaa", filePath);
 
   try {
     await fs.access(cacheDir);
@@ -80,10 +67,10 @@ async function getFileFromUrlServer(url: string): Promise<ArrayBuffer> {
 
   try {
     const data = await fs.readFile(filePath);
-    console.log("Downloaded from cache");
+    console.log("loading from cache", filePath);
     return new Uint8Array(data).buffer;
   } catch (e) {
-    console.log("aaadfsfasfasfdasfas", e);
+    console.warn("[WARN] loading from cache refetching", e.message);
   }
 
   const res = await fetch(url);

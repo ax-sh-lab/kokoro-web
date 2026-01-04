@@ -6,7 +6,7 @@
   import { ExternalLink, Menu, X, Github } from "lucide-svelte";
   import type { LayoutProps } from "./$types";
   import { onMount } from "svelte";
-  import umami from "$lib/client/umami";
+  // import umami from "$lib/client/umami";
   import { VERSION } from "$lib/shared/version";
 
   let { children }: LayoutProps = $props();
@@ -19,8 +19,8 @@
       await startMockServiceWorker();
     }
 
-    umami.loadScript();
-    await umami.identify({ hostname: window.location.hostname });
+    // umami.loadScript();
+    // await umami.identify({ hostname: window.location.hostname });
   });
 </script>
 
