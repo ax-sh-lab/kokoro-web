@@ -12,7 +12,8 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "openapigen": "node ./scripts/generate-openapi.mjs",
     "fmt": "prettier . --write",
-    "test": "vitest run"
+    "test": "vitest run",
+    "lint": "tsgo --noEmit"
   },
   "dependencies": {
     "@ffmpeg/ffmpeg": "0.12.15",
@@ -35,6 +36,7 @@
     "@sveltejs/vite-plugin-svelte": "5.0.3",
     "@tailwindcss/vite": "4.0.6",
     "@types/fluent-ffmpeg": "2.1.27",
+    "@typescript/native-preview": "^7.0.0-dev.20260103.1",
     "daisyui": "5.0.0-beta.8",
     "lucide-svelte": "0.475.0",
     "prettier": "3.5.0",

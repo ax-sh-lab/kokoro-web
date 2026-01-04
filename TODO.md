@@ -1,4 +1,4 @@
-```sh 
+```sh
 curl -X POST "http://localhost:8880/api/v1/audio/speech" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer your-kokoro-api-key" \
