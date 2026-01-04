@@ -3,7 +3,8 @@ import path from "path";
 import OpenAI from "openai";
 import { describe, it } from "vitest";
 
-describe("test api",
+describe(
+  "test api",
   () => {
     it("should ", async () => {
       const host = "http://localhost:8880";
@@ -19,7 +20,7 @@ describe("test api",
           voice: "af_heart",
           input: "Today is a wonderful day to build something people love!",
         });
-        console.log(mp3);
+        console.log("[success]", mp3);
 
         const buffer = Buffer.from(await mp3.arrayBuffer());
         await fs.promises.writeFile(speechFile, buffer);
